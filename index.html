@@ -78,7 +78,10 @@
         .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
         
         .post-it { box-shadow: 2px 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
-        .post-it:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 10; box-shadow: 5px 8px 15px rgba(0,0,0,0.15); }
+        .post-it:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 20; box-shadow: 5px 12px 20px rgba(0,0,0,0.2); }
+        .pop-in { animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        @keyframes popIn { 0% { transform: scale(0) rotate(-20deg); opacity: 0; } 100% { transform: scale(1) var(--rot); opacity: 1; } }
+
         .funnel-layer { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); cursor: pointer; }
         .funnel-layer:hover { transform: scale(1.03) translateY(-5px); box-shadow: 0 15px 25px -5px rgba(139, 92, 246, 0.2); }
         .polka-bg { background-image: radial-gradient(#e2e8f0 2px, transparent 2px); background-size: 30px 30px; }
@@ -103,7 +106,7 @@
                         <a href="#didactico" class="text-amber-500 hover:text-amber-600 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Juegos</a>
                         <a href="#asistente-ia" class="text-lavender px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Weki AI</a>
                         <a href="#innovacion" class="text-neonorange hover:text-orange-600 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Innovación</a>
-                        <a href="#negocio" class="text-green-600 hover:text-green-700 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Negocio</a>
+                        <a href="#mural" class="text-green-600 hover:text-green-700 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">El Muro</a>
                         <a href="#ux-ui" class="bg-lavender hover:bg-purple-600 text-white px-3 py-1.5 rounded-full text-xs font-bold jelly-hover shadow-md shadow-lavender/30">UX/UI</a>
                     </div>
                 </div>
@@ -213,7 +216,8 @@
                                 <p id="nickname-display" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neonorange to-lavender dance-text">OlaSurfista92</p>
                             </div>
                             
-                            <button onclick="generateNicknameAI()" class="jelly-hover w-full bg-purple-50 hover:bg-purple-100 py-3.5 rounded-xl text-sm font-black flex justify-center items-center gap-2 mb-8 transition border border-purple-200 text-purple-700 shadow-sm">
+                            <!-- SE CORRIGIÓ EL MANEJO DEL EVENTO AQUÍ (pasando 'this') -->
+                            <button id="btn-nickname" onclick="generateNicknameAI(this)" class="jelly-hover w-full bg-purple-50 hover:bg-purple-100 py-3.5 rounded-xl text-sm font-black flex justify-center items-center gap-2 mb-8 transition border border-purple-200 text-purple-700 shadow-sm">
                                 <i class="fa-solid fa-dice text-purple-500 text-lg"></i> Lanzar Dados IA
                             </button>
                             
@@ -315,7 +319,8 @@
                         </div>
                     </div>
                     <textarea id="mood-input" class="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 text-textmain font-medium placeholder-gray-400 focus:outline-none focus:border-lavender focus:ring-4 focus:ring-lavender/10 resize-none h-24 transition mb-4 shadow-inner" placeholder="Ej: Hoy tengo un nudo en el estómago y no me dan ganas de salir..."></textarea>
-                    <button id="btn-mood" onclick="scanMoodAI()" class="jelly-hover w-full bg-lavender hover:bg-purple-600 text-white font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 shadow-lg shadow-lavender/30 mb-6 text-lg">
+                    
+                    <button id="btn-mood" onclick="scanMoodAI(this)" class="jelly-hover w-full bg-lavender hover:bg-purple-600 text-white font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 shadow-lg shadow-lavender/30 mb-6 text-lg">
                         <i class="fa-solid fa-magnifying-glass-chart"></i> Analizar Emoción
                     </button>
 
@@ -349,7 +354,7 @@
                         <p id="challenge-display" class="text-center text-2xl text-amber-900 font-handwriting font-bold leading-relaxed z-10 px-4 transition-opacity duration-300">¿Aceptas el reto de Weki? Presiona el botón.</p>
                     </div>
                     
-                    <button id="btn-challenge" onclick="generateChallengeAI()" class="jelly-hover w-full bg-gradient-to-r from-amber-400 to-neonorange hover:from-amber-500 hover:to-orange-600 text-white font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 shadow-lg shadow-orange-500/30 text-lg">
+                    <button id="btn-challenge" onclick="generateChallengeAI(this)" class="jelly-hover w-full bg-gradient-to-r from-amber-400 to-neonorange hover:from-amber-500 hover:to-orange-600 text-white font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 shadow-lg shadow-orange-500/30 text-lg">
                         <i class="fa-solid fa-dice text-2xl"></i> Girar Ruleta
                     </button>
                 </div>
@@ -357,14 +362,14 @@
         </div>
     </section>
 
-    <!-- ASISTENTE DE CONTENCIÓN & PROTOCOLO IA -->
+    <!-- ASISTENTE DE CONTENCIÓN -->
     <section id="asistente-ia" class="py-20 bg-lightbg border-y border-gray-200 relative overflow-hidden">
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-100/50 blur-[100px] rounded-full z-0 pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 relative z-10">
             <span class="bg-purple-100 text-purple-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover"><i class="fa-solid fa-robot mr-2"></i>Weki en Acción</span>
-            <h2 class="text-4xl md:text-5xl font-black mb-4 text-textmain dynamic-title">Contención & Seguridad IA</h2>
-            <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Weki es nuestro motor LLM que actúa como guía empático y como filtro anti-cyberbullying para proteger a la tribu.</p>
+            <h2 class="text-4xl md:text-5xl font-black mb-4 text-textmain dynamic-title">Contención & Escucha Activa</h2>
+            <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Weki actúa como un guía empático, listo para escuchar y recomendar herramientas internas en momentos de pánico.</p>
         </div>
 
         <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
@@ -393,7 +398,8 @@
 
                     <div class="p-4 border-t border-gray-100 bg-white">
                         <textarea id="chat-input" class="w-full bg-gray-50 border-2 border-gray-100 rounded-xl p-3 text-textmain font-medium text-sm placeholder-gray-400 focus:outline-none focus:border-lavender focus:ring-4 focus:ring-lavender/10 resize-none h-16 transition" placeholder="Escribe aquí..."></textarea>
-                        <button id="btn-chat" onclick="simulateAIChat()" class="jelly-hover mt-3 w-full bg-lavender hover:bg-purple-600 font-black py-3 rounded-xl transition text-sm text-white flex justify-center items-center gap-2 shadow-lg shadow-lavender/30">
+                        
+                        <button id="btn-chat" onclick="simulateAIChat(this)" class="jelly-hover mt-3 w-full bg-lavender hover:bg-purple-600 font-black py-3 rounded-xl transition text-sm text-white flex justify-center items-center gap-2 shadow-lg shadow-lavender/30">
                             <i class="fa-solid fa-paper-plane"></i> Enviar a Weki
                         </button>
                     </div>
@@ -403,13 +409,13 @@
             <div class="space-y-6">
                 <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover cursor-default">
                     <div class="w-12 h-12 bg-lavender/10 rounded-xl flex items-center justify-center text-lavender text-xl mb-3"><i class="fa-solid fa-ear-listen"></i></div>
-                    <h4 class="font-black text-textmain text-xl mb-2">Escucha Activa</h4>
-                    <p class="text-sm font-medium text-textmuted leading-relaxed">Weki lee el texto y valida la emoción sin lanzar un frío regaño, mapeando qué herramienta interna necesitas (Yoga, Podcasts o el Muro).</p>
+                    <h4 class="font-black text-textmain text-xl mb-2">Escucha Activa Libre de Juicios</h4>
+                    <p class="text-sm font-medium text-textmuted leading-relaxed">Weki lee el texto y valida la emoción sin lanzar un frío regaño. No es un chatbot aburrido; es un motor configurado con psicología positiva y empática.</p>
                 </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 border-l-8 border-l-neonorange shadow-md jelly-hover cursor-default">
-                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-neonorange text-xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h4 class="font-black text-textmain text-xl mb-2">Filtro de Empatía</h4>
-                    <p class="text-sm font-medium text-textmuted leading-relaxed">Si alguien intenta publicar bullying en el muro, la IA no solo lo bloquea, sino que lanza un pop-up empático invitando a la reflexión y cuidando a la comunidad.</p>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover cursor-default">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-neonorange text-xl mb-3"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h4 class="font-black text-textmain text-xl mb-2">Mapeo de Herramientas</h4>
+                    <p class="text-sm font-medium text-textmuted leading-relaxed">Al entender lo que el usuario siente (ej. ansiedad por exámenes), Weki lo guía hacia el recurso interno exacto que necesita: Yoga de 5 min, el Muro o Podcasts.</p>
                 </div>
             </div>
         </div>
@@ -449,38 +455,85 @@
         </div>
     </section>
 
-    <!-- ACTIVACIÓN OFFLINE: El Muro Weknow en Oaxaca -->
+    <!-- ACTIVACIÓN OFFLINE: El Muro Weknow (CON DETALLES DE DINÁMICA) -->
     <section id="mural" class="py-20 bg-lightbg border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-            <span class="bg-yellow-100 text-yellow-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover">Activación Oaxaca</span>
-            <h2 class="text-4xl font-black mb-4 text-textmain dynamic-title">El Muro que cruza la pantalla</h2>
-            <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Las escuelas en Oaxaca serán nuestro primer punto de contacto. Llevamos la plataforma al mundo físico.</p>
+            <span class="bg-yellow-100 text-yellow-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover">Innovación Híbrida (Offline + Online)</span>
+            <h2 class="text-4xl font-black mb-4 text-textmain dynamic-title">El Muro: De la Escuela a la App</h2>
+            <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Llevamos la plataforma al mundo físico con dinámicas en escuelas, y lo conectamos con nuestro muro digital seguro impulsado por IA.</p>
         </div>
 
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[500px]">
-                <!-- Representación CSS del Muro Kraft -->
-                <div class="w-full h-full bg-[#E6D5B8] relative overflow-hidden flex items-center justify-center">
-                    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\'/%3E%3C/svg%3E');"></div>
-                    
-                    <div class="post-it absolute top-12 left-[10%] w-36 h-36 bg-[#ff7eb9] -rotate-3 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Me siento invisible a veces.</div>
-                    <div class="post-it absolute top-40 left-[25%] w-36 h-36 bg-[#fff740] rotate-6 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">¡Hoy pase mi examen!</div>
-                    <div class="post-it absolute top-16 right-[15%] w-36 h-36 bg-[#7afcff] rotate-2 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Tengo mucho estres por el futuro.</div>
-                    <div class="post-it absolute bottom-24 left-[35%] w-36 h-36 bg-[#ff65a3] -rotate-6 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Extraño a mis amigos.</div>
-                    <div class="post-it absolute bottom-16 right-[25%] w-36 h-36 bg-[#feff9c] rotate-12 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Quiero llorar y no se porque.</div>
-                    
-                    <h2 class="relative z-10 text-6xl md:text-8xl font-black text-black/10 font-handwriting select-none transform -rotate-6">MURO OAXACA</h2>
-                </div>
+        <!-- EXPLICACIÓN DE LA DINÁMICA (AÑADIDO SEGÚN EL PDF) -->
+        <div class="max-w-5xl mx-auto px-4 mb-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-md jelly-hover cursor-default">
+                <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-xl mb-4"><i class="fa-solid fa-box-open"></i></div>
+                <h4 class="font-black text-textmain mb-2">1. Materiales (Offline)</h4>
+                <ul class="text-sm text-textmuted font-medium list-disc list-inside space-y-1">
+                    <li>Papel kraft gigante</li>
+                    <li>Post-its de colores neón</li>
+                    <li>Plumones</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-md jelly-hover cursor-default">
+                <div class="w-12 h-12 bg-lavender/10 rounded-2xl flex items-center justify-center text-lavender text-xl mb-4"><i class="fa-solid fa-users"></i></div>
+                <h4 class="font-black text-textmain mb-2">2. La Dinámica</h4>
+                <p class="text-sm text-textmuted font-medium">Cada niño escribe en los post-its una emoción o pensamiento que ha sentido últimamente, y lo pegan libremente en el muro escolar de manera anónima.</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-md jelly-hover cursor-default border-b-4 border-b-neonorange">
+                <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-neonorange text-xl mb-4"><i class="fa-solid fa-lightbulb"></i></div>
+                <h4 class="font-black text-textmain mb-2">3. ¿Por qué ayuda?</h4>
+                <p class="text-sm text-textmuted font-medium">Al final, los niños observan el mural y se dan cuenta de que <b>no son los únicos que se sienten así</b>. Rompe el aislamiento. Luego los conectamos a la App: <i>"Este muro también existe en línea."</i></p>
+            </div>
+        </div>
 
-                <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md p-8 border-t border-gray-100">
-                    <h3 class="text-2xl font-black text-textmain mb-3">La Dinámica del Muro</h3>
-                    <div class="flex flex-col md:flex-row gap-6 text-sm text-textmuted">
-                        <p><b class="text-amber-500 font-black">1. Materiales:</b> Papel Kraft gigante, Post-its neón, Plumones.</p>
-                        <p><b class="text-lavender font-black">2. Acción:</b> Escriben anónimamente una emoción y lo pegan libremente.</p>
-                        <p><b class="text-neonorange font-black">3. El Puente Digital:</b> Un código QR vibrante los invita a llevar el muro en la App.</p>
+        <div class="max-w-5xl mx-auto px-4 flex flex-col items-center">
+            
+            <!-- Controles del Muro Digital -->
+            <div class="w-full max-w-2xl bg-white p-6 rounded-3xl shadow-xl border border-gray-100 mb-8 z-20 relative">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="weki-mascot small"><div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth"></div></div></div>
+                    <div>
+                        <h4 class="font-bold text-textmain">Agrega tu Post-it al Muro Digital</h4>
+                        <p class="text-xs text-textmuted">Weki verificará que sea un entorno seguro. Intenta enviar algo positivo o algo negativo.</p>
                     </div>
                 </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="mural-input" maxlength="60" class="flex-1 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 text-textmain font-medium placeholder-gray-400 focus:outline-none focus:border-lavender focus:ring-4 focus:ring-lavender/10 transition" placeholder="Ej: Me siento feliz hoy... o intenta un insulto.">
+                    
+                    <button id="btn-mural" onclick="addPostItAI(this)" class="bg-lavender hover:bg-purple-600 text-white font-black py-4 px-6 rounded-2xl transition shadow-lg shadow-lavender/30 whitespace-nowrap jelly-hover">
+                        <i class="fa-solid fa-note-sticky mr-2"></i> Pegar con IA
+                    </button>
+                </div>
             </div>
+
+            <!-- Muro Kraft (Contenedor Dinámico) -->
+            <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl border-[8px] border-white h-[600px]">
+                <div id="mural-kraft" class="w-full h-full bg-[#E6D5B8] relative overflow-hidden flex items-center justify-center">
+                    <div class="absolute inset-0 opacity-[0.05]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\'/%3E%3C/svg%3E');"></div>
+                    
+                    <h2 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl md:text-8xl font-black text-black/10 font-handwriting select-none -rotate-6 w-max pointer-events-none">MURO WEKNOW</h2>
+                    
+                    <!-- Post-its iniciales -->
+                    <div class="post-it absolute top-[10%] left-[10%] w-36 h-36 bg-[#ff7eb9] -rotate-3 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg" style="--rot: -3deg;">Me siento invisible a veces.</div>
+                    <div class="post-it absolute top-[60%] left-[25%] w-36 h-36 bg-[#fff740] rotate-6 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg" style="--rot: 6deg;">¡Hoy pase mi examen!</div>
+                    <div class="post-it absolute top-[15%] right-[15%] w-36 h-36 bg-[#7afcff] rotate-2 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg" style="--rot: 2deg;">Tengo mucho estres por el futuro.</div>
+                    <div class="post-it absolute bottom-[15%] right-[25%] w-36 h-36 bg-[#feff9c] rotate-12 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg" style="--rot: 12deg;">Quiero llorar y no se porque.</div>
+                </div>
+            </div>
+            
+            <!-- Pop-up Moderación IA (Filtro de Empatía) -->
+            <div id="mural-modal" class="hidden fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div class="bg-white border-2 border-orange-200 rounded-3xl p-8 text-center shadow-2xl max-w-md w-full transform transition scale-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-neonorange to-amber-400"></div>
+                    <div class="weki-mascot mx-auto mb-6 shadow-md border border-orange-100"><div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth" style="border-radius: 18px 18px 0 0; border-bottom: none; border-top: 4px solid white; top: 60%;"></div></div></div>
+                    <h4 class="text-2xl font-black text-textmain mb-2">¡Weki te cuida!</h4>
+                    <p id="mural-modal-msg" class="text-sm text-textmuted mb-8 font-medium leading-relaxed"></p>
+                    <button onclick="closeMuralModal()" class="w-full bg-gray-100 hover:bg-gray-200 py-4 rounded-2xl text-sm font-bold text-gray-700 transition">Entendido, modificaré mi mensaje</button>
+                </div>
+            </div>
+            
         </div>
     </section>
 
@@ -539,7 +592,6 @@
             </div>
 
             <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
-                
                 <!-- Desktop UI Mockup Light -->
                 <div class="relative w-full max-w-2xl group">
                     <div class="bg-gray-200 rounded-t-3xl p-3 border border-gray-300 border-b-0 shadow-2xl transition duration-500 group-hover:shadow-[0_20px_50px_rgba(139,92,246,0.2)] group-hover:-translate-y-2">
@@ -652,11 +704,16 @@
             }
         }
 
-        async function generateNicknameAI() {
-            const btn = document.getElementById('btn-nickname');
+        // SE PASA EL ELEMENTO DEL BOTÓN DIRECTAMENTE (this) PARA EVITAR ERRORES DE NULL
+        async function generateNicknameAI(btnElement) {
+            const btn = btnElement || document.getElementById('btn-nickname');
             const display = document.getElementById('nickname-display');
+            
+            // Si por alguna razón no encuentra el botón, sale de la función para no causar errores.
+            if (!btn || !display) return;
+            
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lavender"></i> Weki pensando...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-purple-700"></i>';
             btn.disabled = true;
             try {
                 const prompt = `Genera UN SOLO nickname divertido y positivo combinando 2 palabras en español (ej: NinjaPositivo) y un número de 2 dígitos al final. Devuelve ÚNICAMENTE el nickname.`;
@@ -672,12 +729,14 @@
             }
         }
 
-        async function simulateAIChat() {
+        async function simulateAIChat(btnElement) {
             const inputEl = document.getElementById('chat-input');
             const message = inputEl.value;
             if(message.trim() === '') return;
 
             const chatContainer = document.getElementById('chat-container');
+            const btn = btnElement || document.getElementById('btn-chat');
+            
             const userMsgHtml = `<div class="flex justify-end mt-4"><div class="bg-lavender text-white font-medium text-sm p-4 rounded-3xl rounded-tr-none max-w-[85%] shadow-md">${message}</div></div>`;
             document.getElementById('ai-typing').insertAdjacentHTML('beforebegin', userMsgHtml);
             inputEl.value = '';
@@ -685,8 +744,8 @@
             const typingIndicator = document.getElementById('ai-typing');
             typingIndicator.classList.remove('hidden');
             chatContainer.scrollTop = chatContainer.scrollHeight;
-            const btn = document.getElementById('btn-chat');
-            btn.disabled = true;
+            
+            if (btn) btn.disabled = true;
 
             try {
                 const aiPrompt = `Un adolescente te dice: "${message}". Responde como Weki en 3 oraciones cortas. Valida su emoción amigablemente. Recomienda usar Yoga de 5 min, escuchar un podcast, o ir al Muro Anónimo. Sin markdown.`;
@@ -698,17 +757,20 @@
                 typingIndicator.classList.add('hidden');
                 typingIndicator.insertAdjacentHTML('beforebegin', `<div class="flex justify-start mt-4"><div class="bg-red-50 text-red-700 text-sm p-4 rounded-3xl max-w-[85%]">Ouch, perdí la conexión. ¡Recuerda respirar profundo!</div></div>`);
             } finally {
-                btn.disabled = false;
+                if (btn) btn.disabled = false;
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
         }
 
-        async function scanMoodAI() {
+        async function scanMoodAI(btnElement) {
             const input = document.getElementById('mood-input').value;
             if(input.trim() === '') return;
-            const btn = document.getElementById('btn-mood');
+            
+            const btn = btnElement || document.getElementById('btn-mood');
+            if (!btn) return;
+            
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white"></i> Weki escaneando...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white"></i>';
             btn.disabled = true;
             document.getElementById('mood-result').classList.add('hidden');
 
@@ -730,11 +792,13 @@
             } finally { btn.innerHTML = originalText; btn.disabled = false; }
         }
 
-        async function generateChallengeAI() {
-            const btn = document.getElementById('btn-challenge');
+        async function generateChallengeAI(btnElement) {
             const display = document.getElementById('challenge-display');
+            const btn = btnElement || document.getElementById('btn-challenge');
+            if (!btn) return;
+            
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white"></i> Creando...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white"></i>';
             btn.disabled = true;
             display.classList.add('opacity-50');
 
@@ -751,6 +815,70 @@
                 btn.disabled = false;
                 display.classList.remove('opacity-50');
             }
+        }
+
+        async function addPostItAI(btnElement) {
+            const inputEl = document.getElementById('mural-input');
+            const text = inputEl.value;
+            if (text.trim() === '') return;
+
+            const btn = btnElement || document.getElementById('btn-mural');
+            if (!btn) return;
+            
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analizando...';
+            btn.disabled = true;
+
+            try {
+                const aiPrompt = `Analiza el siguiente texto de un adolescente que quiere pegarlo en un muro físico/digital escolar.
+                Determina si es odio, bullying, un insulto a alguien más o agresivo.
+                Devuelve estrictamente un JSON con este formato:
+                {
+                  "isHurtful": booleano (true si es agresivo/odio/insulto, false si es un desahogo seguro, tristeza, alegría o positivo),
+                  "empatheticMessage": "Si isHurtful es true, escribe un mensaje de Weki (máx 2 líneas) explicando por qué no se puede publicar y recordando que la tribu es un espacio seguro. Si es false, deja vacío.",
+                  "postItColor": "Si isHurtful es false, devuelve un color HEX brillante y neón estilo post-it (ej. #ff7eb9, #fff740, #7afcff). Si es true, vacío."
+                }
+                Texto a analizar: "${text}"`;
+
+                const result = await fetchGeminiWithRetry(aiPrompt, true);
+
+                if (result.isHurtful) {
+                    // Bloquear y mostrar modal de Weki
+                    document.getElementById('mural-modal-msg').innerText = result.empatheticMessage;
+                    document.getElementById('mural-modal').classList.remove('hidden');
+                } else {
+                    // Permitir y crear Post-it dinámico
+                    const mural = document.getElementById('mural-kraft');
+                    const newPostIt = document.createElement('div');
+                    
+                    // Coordenadas y rotación aleatorias para que parezca natural
+                    const top = Math.floor(Math.random() * 50) + 10;
+                    const left = Math.floor(Math.random() * 60) + 10;
+                    const rot = Math.floor(Math.random() * 30) - 15;
+                    
+                    newPostIt.className = `post-it absolute w-36 h-36 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg pop-in`;
+                    newPostIt.style.top = `${top}%`;
+                    newPostIt.style.left = `${left}%`;
+                    newPostIt.style.backgroundColor = result.postItColor || '#fff740';
+                    newPostIt.style.setProperty('--rot', `${rot}deg`);
+                    newPostIt.innerText = text;
+                    
+                    mural.appendChild(newPostIt);
+                    inputEl.value = ''; // Limpiar input
+                }
+            } catch (error) {
+                console.error("Error en filtro de Muro:", error);
+                // Fallback de seguridad
+                document.getElementById('mural-modal-msg').innerText = "Weki no pudo procesar este mensaje por un problema de conexión. Intenta más tarde.";
+                document.getElementById('mural-modal').classList.remove('hidden');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function closeMuralModal() {
+            document.getElementById('mural-modal').classList.add('hidden');
         }
     </script>
 </body>
