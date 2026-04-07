@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEKNOW - Presentación Ejecutiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lightbg: '#F8FAFC',
+                        cardbg: '#FFFFFF',
+                        lavender: '#8b5cf6',
+                        neonorange: '#f97316',
+                        mangoyellow: '#facc15',
+                        textmain: '#1e293b',
+                        textmuted: '#64748b',
+                        kraft: '#C19A6B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        handwriting: ['"Comic Sans MS"', 'cursive', 'sans-serif'],
+                        display: ['"Nunito"', '"Inter"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Nunito:wght@700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #1e293b; overflow-x: hidden; }
+        
+        /* LA MASCOTA DE MARCA: "WEKI" */
+        .weki-mascot {
+            width: 90px; height: 90px;
+            background: linear-gradient(135deg, #8b5cf6, #f97316, #facc15);
+            background-size: 200% 200%;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morphWeki 4s ease-in-out infinite, floatWeki 3s ease-in-out infinite, gradientShift 6s ease infinite;
+            position: relative; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); transition: transform 0.3s ease; cursor: pointer;
+        }
+        .weki-mascot:hover { transform: scale(1.15) rotate(10deg); }
+        .weki-mascot.small { width: 45px; height: 45px; box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3); }
+        .weki-mascot.small .weki-eye { width: 6px; height: 9px; }
+        .weki-mascot.small .weki-mouth { width: 10px; height: 6px; border-bottom: 2px solid white; bottom: 22%; }
+        
+        .weki-face { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .weki-eyes { display: flex; gap: 12px; margin-bottom: 8px; }
+        .weki-eye { width: 10px; height: 14px; background: white; border-radius: 50%; animation: blinkWeki 4s infinite; }
+        .weki-mouth { position: absolute; bottom: 25%; width: 18px; height: 10px; border-bottom: 4px solid white; border-radius: 0 0 18px 18px; }
+        
+        @keyframes morphWeki { 0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } 50% { border-radius: 30% 70% 70% 30% / 30% 60% 40% 70%; } 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } }
+        @keyframes floatWeki { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        @keyframes blinkWeki { 0%, 96%, 98% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* TIPOGRAFÍAS Y ANIMACIONES */
+        h1, h2 { font-family: 'Nunito', sans-serif; letter-spacing: -0.02em; }
+        .dynamic-title { animation: floatTitle 6s ease-in-out infinite; display: inline-block; }
+        @keyframes floatTitle { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-5px) rotate(0.5deg); } }
+        .jelly-hover { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .jelly-hover:hover { transform: scale(1.05) rotate(-1deg); }
+        .dance-text { display: inline-block; transition: transform 0.2s; }
+        .dance-text:hover { transform: scale(1.1) rotate(3deg) translateY(-2px); color: #8b5cf6; cursor: default; }
+
+        /* MOCKUPS & UI */
+        .mockup-phone { border: 8px solid #e2e8f0; border-radius: 2.5rem; overflow: hidden; position: relative; background: #ffffff; box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.15); }
+        .mockup-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 24px; background: #e2e8f0; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 10; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .typing-indicator span { display: inline-block; width: 5px; height: 5px; background-color: #8b5cf6; border-radius: 50%; margin: 0 2px; animation: bounce 1.4s infinite ease-in-out both; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        
+        .post-it { box-shadow: 2px 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+        .post-it:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 10; box-shadow: 5px 8px 15px rgba(0,0,0,0.15); }
+        .funnel-layer { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); cursor: pointer; }
+        .funnel-layer:hover { transform: scale(1.03) translateY(-5px); box-shadow: 0 15px 25px -5px rgba(139, 92, 246, 0.2); }
+        .polka-bg { background-image: radial-gradient(#e2e8f0 2px, transparent 2px); background-size: 30px 30px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-lavender selection:text-white">
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="weki-mascot small" style="width: 35px; height: 35px; animation: none;">
+                        <div class="weki-face"><div class="weki-eyes" style="gap: 5px; margin-bottom: 2px;"><div class="weki-eye" style="width: 4px; height: 7px;"></div><div class="weki-eye" style="width: 4px; height: 7px;"></div></div><div class="weki-mouth" style="width: 8px; height: 4px; border-bottom: 2px solid white; bottom: 30%;"></div></div>
+                    </div>
+                    <span class="font-black text-2xl tracking-tight text-textmain font-display">WEKNOW</span>
+                </div>
+                <div class="hidden lg:block overflow-x-auto">
+                    <div class="ml-4 flex items-center space-x-1">
+                        <a href="#problema" class="text-textmuted hover:text-lavender px-2 py-2 rounded-xl text-xs font-bold jelly-hover">El Problema</a>
+                        <a href="#benchmarking" class="text-textmuted hover:text-lavender px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Mercado</a>
+                        <a href="#didactico" class="text-amber-500 hover:text-amber-600 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Juegos</a>
+                        <a href="#asistente-ia" class="text-lavender px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Weki AI</a>
+                        <a href="#innovacion" class="text-neonorange hover:text-orange-600 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Innovación</a>
+                        <a href="#negocio" class="text-green-600 hover:text-green-700 px-2 py-2 rounded-xl text-xs font-bold jelly-hover">Negocio</a>
+                        <a href="#ux-ui" class="bg-lavender hover:bg-purple-600 text-white px-3 py-1.5 rounded-full text-xs font-bold jelly-hover shadow-md shadow-lavender/30">UX/UI</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section / Portada -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center min-h-[80vh] justify-center relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-lavender/10 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col items-center">
+            <div class="weki-mascot mb-8 group" title="¡Hola! Soy Weki">
+                <div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth"></div></div>
+                <div class="absolute -top-10 bg-white text-lavender font-bold px-4 py-1.5 rounded-2xl shadow-xl text-sm opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:-translate-y-2 pointer-events-none whitespace-nowrap">
+                    ¡Hola! Soy Weki 👋
+                    <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-textmain dynamic-title">
+                No estás <span class="dance-text">exagerando</span>. <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-lavender via-purple-500 to-neonorange inline-block mt-2">Lo que sientes es real.</span>
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-textmuted max-w-3xl mb-10 font-medium">
+                "Te dicen que todo va a pasar, pero nadie te explica cómo." <br> Weknow es el refugio digital más divertido y seguro para tu mente.
+            </p>
+            <div class="flex gap-4">
+                <a href="#solucion" class="jelly-hover bg-gradient-to-r from-lavender to-purple-500 text-white font-black py-4 px-8 rounded-full shadow-xl shadow-lavender/30 text-lg">
+                    Conoce el Proyecto
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- El Problema -->
+    <section id="problema" class="py-20 bg-white border-y border-gray-100 polka-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 bg-white/80 backdrop-blur-sm p-4 rounded-2xl inline-block mx-auto shadow-sm border border-gray-100">
+                <h2 class="text-3xl font-black text-neonorange mb-2 dynamic-title">El Contexto en México</h2>
+                <p class="text-textmuted max-w-2xl mx-auto font-medium">No son solo números, es la realidad de nuestros estudiantes todos los días.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="jelly-hover bg-white p-8 rounded-3xl border-2 border-orange-100 shadow-xl shadow-orange-500/5 text-center">
+                    <div class="text-6xl font-black text-neonorange mb-4">20.1%</div>
+                    <p class="text-sm text-textmuted font-bold">De los adolescentes (12-17 años) enfrentan retos de salud mental (ENCODAT).</p>
+                </div>
+                <div class="jelly-hover bg-white p-8 rounded-3xl border-2 border-purple-100 shadow-xl shadow-lavender/5 text-center">
+                    <div class="text-6xl font-black text-lavender mb-4">7 de 10</div>
+                    <p class="text-sm text-textmuted font-bold">Han presentado síntomas de ansiedad o tristeza profunda en el último año.</p>
+                </div>
+                <div class="jelly-hover bg-white p-8 rounded-3xl border-2 border-yellow-100 shadow-xl shadow-yellow-500/5 text-center">
+                    <div class="text-6xl font-black text-amber-400 mb-4 animate-bounce"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <p class="text-sm text-textmuted font-bold">La gran mayoría no recibe atención formal ni tiene con quién hablar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ¿Qué es Weknow? -->
+    <section id="solucion" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl font-black mb-6 text-textmain dynamic-title">¿Qué es Weknow?</h2>
+                <p class="text-xl text-textmuted mb-8 font-medium">Un lugar donde <span class="dance-text font-bold text-lavender">no tienes que fingir</span> que estás bien. Una app diseñada para sentirse como un juego, pero con el respaldo de profesionales.</p>
+                <ul class="space-y-6">
+                    <li class="flex items-start bg-white p-5 rounded-3xl shadow-md border border-gray-100 jelly-hover">
+                        <div class="flex-shrink-0 bg-lavender/10 p-4 rounded-2xl"><i class="fa-solid fa-heart-pulse text-lavender text-2xl"></i></div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-textmain mb-1">Mente Sana</h3>
+                            <p class="text-textmuted text-sm">Información clara, amigable y cero aburrida.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start bg-white p-5 rounded-3xl shadow-md border border-gray-100 jelly-hover">
+                        <div class="flex-shrink-0 bg-orange-50 p-4 rounded-2xl"><i class="fa-solid fa-users text-neonorange text-2xl"></i></div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-textmain mb-1">Tribu Segura</h3>
+                            <p class="text-textmuted text-sm">Exprésate en nuestro muro con total anonimato.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start bg-white p-5 rounded-3xl shadow-md border border-gray-100 jelly-hover">
+                        <div class="flex-shrink-0 bg-yellow-50 p-4 rounded-2xl"><i class="fa-solid fa-gamepad text-amber-500 text-2xl"></i></div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-textmain mb-1">Juega y Sana</h3>
+                            <p class="text-textmuted text-sm">Retos interactivos y dinámicas guiadas por nuestra IA.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="relative flex justify-center">
+                <!-- Mockup App -->
+                <div class="mockup-phone w-72 h-[550px] flex flex-col z-10 transform -rotate-3 transition duration-500 hover:rotate-0 hover:scale-105 shadow-2xl shadow-purple-500/20">
+                    <div class="mockup-notch"></div>
+                    <div class="p-6 pt-14 h-full flex flex-col relative overflow-hidden bg-white">
+                        <div class="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-amber-100/50 via-purple-50 to-white z-0 pointer-events-none"></div>
+                        <div class="relative z-10 flex-1 flex flex-col">
+                            <div class="text-center mb-6">
+                                <div class="weki-mascot small mx-auto mb-3 shadow-lg"><div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth"></div></div></div>
+                                <h3 class="font-black text-2xl text-textmain font-display">Weknow</h3>
+                                <p class="text-xs text-textmuted font-bold mt-1 uppercase tracking-wide">Creador de Identidad</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl p-5 text-center border-2 border-purple-100 mb-4 shadow-sm">
+                                <p class="text-xs text-textmuted mb-3 font-bold">Tú serás conocido como:</p>
+                                <p id="nickname-display" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neonorange to-lavender dance-text">OlaSurfista92</p>
+                            </div>
+                            
+                            <button onclick="generateNicknameAI()" class="jelly-hover w-full bg-purple-50 hover:bg-purple-100 py-3.5 rounded-xl text-sm font-black flex justify-center items-center gap-2 mb-8 transition border border-purple-200 text-purple-700 shadow-sm">
+                                <i class="fa-solid fa-dice text-purple-500 text-lg"></i> Lanzar Dados IA
+                            </button>
+                            
+                            <div class="mt-auto space-y-3">
+                                <button class="jelly-hover w-full bg-lavender hover:bg-purple-600 py-4 rounded-xl text-white font-black transition shadow-lg shadow-lavender/30 text-lg">¡Entrar a la Tribu!</button>
+                                <p class="text-center text-xs text-textmuted font-bold"><i class="fa-solid fa-shield-halved text-green-500 mr-1"></i> Weki protege tu identidad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENCHMARKING (Mercado) -->
+    <section id="benchmarking" class="py-20 bg-lightbg border-y border-gray-200 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="bg-purple-100 text-purple-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover">Análisis de Mercado</span>
+                <h2 class="text-4xl font-black mb-4 text-textmain dynamic-title">Por qué le ganamos a la competencia</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl h-full flex flex-col justify-center">
+                    <h4 class="text-center text-textmuted mb-8 font-bold uppercase tracking-wider text-sm">Engagement en Redes (Adolescentes)</h4>
+                    
+                    <div class="mb-8">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-textmuted font-bold"><i class="fa-solid fa-building-columns text-gray-400 w-6 text-lg"></i> Instituciones (UNICEF, etc.)</span>
+                            <span class="text-textmuted font-bold">15%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-5 overflow-hidden"><div class="bg-gray-300 h-5 rounded-full" style="width: 15%"></div></div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-lavender font-bold text-lg"><div class="weki-mascot small inline-flex align-middle" style="width:20px;height:20px;box-shadow:none;margin-right:5px;animation:none;"><div class="weki-face"><div class="weki-eyes" style="gap:2px;margin-bottom:1px;"><div class="weki-eye" style="width:2px;height:4px;"></div><div class="weki-eye" style="width:2px;height:4px;"></div></div></div></div> Weknow</span>
+                            <span class="text-lavender font-bold text-lg">85%</span>
+                        </div>
+                        <div class="w-full bg-purple-50 rounded-full h-5 overflow-hidden p-0.5 border border-purple-100">
+                            <div class="bg-gradient-to-r from-lavender to-neonorange h-full rounded-full relative" style="width: 85%">
+                                <div class="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-white rounded-full animate-ping"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="bg-red-50 p-5 rounded-2xl border border-red-100 text-center jelly-hover">
+                            <i class="fa-solid fa-users-slash text-3xl text-red-400 mb-3"></i>
+                            <p class="text-xs text-red-700 font-bold">Ellos: Atraen padres, espantan jóvenes.</p>
+                        </div>
+                        <div class="bg-purple-50 p-5 rounded-2xl border border-purple-100 text-center jelly-hover">
+                            <i class="fa-solid fa-heart-circle-check text-3xl text-lavender mb-3"></i>
+                            <p class="text-xs text-purple-700 font-bold">Weknow: Conexión nativa y privada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm transition hover:border-red-200 hover:shadow-md jelly-hover">
+                        <h3 class="text-xl font-black text-red-500 mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-xmark"></i> El problema tradicional</h3>
+                        <p class="text-textmuted text-sm font-medium leading-relaxed">Su comunicación es un "folleto médico digital". Hablan desde la autoridad, con colores aburridos y cero interacción.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border-2 border-lavender/30 shadow-lg shadow-lavender/10 relative overflow-hidden jelly-hover">
+                        <h3 class="text-xl font-black text-lavender mb-4 flex items-center gap-2"><i class="fa-solid fa-star"></i> La Ventaja Weknow</h3>
+                        <ul class="text-textmain text-sm space-y-4 font-medium">
+                            <li class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                <div class="bg-orange-100 p-1.5 rounded-lg mt-0.5"><i class="fa-solid fa-comment-dots text-neonorange"></i></div>
+                                <div><b>Lenguaje Nativo:</b> Memes, trends y el mismo estilo visual vibrante que ellos consumen.</div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                <div class="bg-purple-100 p-1.5 rounded-lg mt-0.5"><i class="fa-solid fa-user-secret text-lavender"></i></div>
+                                <div><b>Escudo de Privacidad:</b> Anonimato en un entorno luminoso que los hace abrirse sin miedo.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZONA INTERACTIVA DIDÁCTICA (Juegos IA) -->
+    <section id="didactico" class="py-20 bg-white border-b border-gray-100 polka-bg relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 bg-white/80 backdrop-blur-sm p-6 rounded-3xl inline-block mx-auto shadow-sm border border-gray-100">
+                <span class="bg-amber-100 text-amber-700 font-bold px-5 py-2 rounded-full text-sm mb-4 inline-block jelly-hover"><i class="fa-solid fa-gamepad mr-2"></i>Aprende Jugando</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-textmain dynamic-title">Zona Interactiva</h2>
+                <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Conoce a Weki. Usa estas herramientas impulsadas por inteligencia artificial para descubrir cómo te sientes y hackear tu mente hacia el positivismo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+                <!-- Herramienta 1: Escáner de Emociones -->
+                <div class="bg-white rounded-3xl border-2 border-purple-100 shadow-xl shadow-purple-500/10 p-8 flex flex-col group hover:border-lavender/50 transition duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="weki-mascot small shadow-sm border border-white/20"><div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth"></div></div></div>
+                        <div>
+                            <h3 class="text-2xl font-black text-textmain">Escáner de Weki</h3>
+                            <p class="text-sm text-textmuted font-medium">Dile a Weki qué piensas, él descubrirá tu emoción.</p>
+                        </div>
+                    </div>
+                    <textarea id="mood-input" class="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 text-textmain font-medium placeholder-gray-400 focus:outline-none focus:border-lavender focus:ring-4 focus:ring-lavender/10 resize-none h-24 transition mb-4 shadow-inner" placeholder="Ej: Hoy tengo un nudo en el estómago y no me dan ganas de salir..."></textarea>
+                    <button id="btn-mood" onclick="scanMoodAI()" class="jelly-hover w-full bg-lavender hover:bg-purple-600 text-white font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 shadow-lg shadow-lavender/30 mb-6 text-lg">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i> Analizar Emoción
+                    </button>
+
+                    <!-- Resultado Escáner -->
+                    <div id="mood-result" class="hidden mt-auto bg-gray-50 border border-gray-100 rounded-3xl p-6 transform transition">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div id="mood-emoji" class="text-6xl drop-shadow-md jelly-hover">🤔</div>
+                            <div>
+                                <p class="text-[10px] text-gray-500 uppercase font-black tracking-wider mb-1">Emoción Detectada:</p>
+                                <h4 id="mood-name" class="text-2xl font-black text-textmain capitalize dance-text">...</h4>
+                            </div>
+                        </div>
+                        <div class="h-3 w-full bg-gray-200 rounded-full mb-4 overflow-hidden border border-gray-100"><div id="mood-color-bar" class="h-full w-full bg-lavender transition-all duration-700 ease-out"></div></div>
+                        <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm relative">
+                            <p id="mood-advice" class="text-sm text-textmain font-bold leading-relaxed relative z-10"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Herramienta 2: Generador de Retos -->
+                <div class="bg-white rounded-3xl border-2 border-orange-100 shadow-xl shadow-orange-500/10 p-8 flex flex-col group hover:border-amber-300 transition duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-500 text-3xl shadow-sm border border-amber-200 animate-pulse"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <h3 class="text-2xl font-black text-textmain">Reto Relámpago</h3>
+                            <p class="text-sm text-textmuted font-medium">Mini-misiones de 1 minuto para subir tu energía.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl border-2 border-amber-200 border-dashed p-8 mb-6 relative shadow-inner">
+                        <p id="challenge-display" class="text-center text-2xl text-amber-900 font-handwriting font-bold leading-relaxed z-10 px-4 transition-opacity duration-300">¿Aceptas el reto de Weki? Presiona el botón.</p>
+                    </div>
+                    
+                    <button id="btn-challenge" onclick="generateChallengeAI()" class="jelly-hover w-full bg-gradient-to-r from-amber-400 to-neonorange hover:from-amber-500 hover:to-orange-600 text-white font-black py-4 rounded-2xl transition flex justify-center items-center gap-2 shadow-lg shadow-orange-500/30 text-lg">
+                        <i class="fa-solid fa-dice text-2xl"></i> Girar Ruleta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ASISTENTE DE CONTENCIÓN & PROTOCOLO IA -->
+    <section id="asistente-ia" class="py-20 bg-lightbg border-y border-gray-200 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-100/50 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 relative z-10">
+            <span class="bg-purple-100 text-purple-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover"><i class="fa-solid fa-robot mr-2"></i>Weki en Acción</span>
+            <h2 class="text-4xl md:text-5xl font-black mb-4 text-textmain dynamic-title">Contención & Seguridad IA</h2>
+            <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Weki es nuestro motor LLM que actúa como guía empático y como filtro anti-cyberbullying para proteger a la tribu.</p>
+        </div>
+
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+            <!-- Mockup Chat de Weki -->
+            <div class="flex justify-center">
+                <div class="mockup-phone w-80 h-[550px] flex flex-col text-left bg-white relative border-gray-200 shadow-2xl shadow-lavender/20 jelly-hover cursor-default">
+                    <div class="mockup-notch"></div>
+                    <div class="p-5 pt-12 border-b border-gray-100 flex items-center gap-3 bg-white shadow-sm z-10">
+                        <div class="weki-mascot small"><div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth"></div></div></div>
+                        <div>
+                            <h3 class="font-black text-lg text-textmain">Weki AI ✨</h3>
+                            <p class="text-xs text-green-500 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse block"></span> En línea, listo para oírte</p>
+                        </div>
+                    </div>
+                    
+                    <div id="chat-container" class="flex-1 overflow-y-auto p-5 space-y-5 no-scrollbar bg-gray-50/50">
+                        <div class="flex justify-start">
+                            <div class="bg-white border border-gray-100 text-textmain font-medium text-sm p-4 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm leading-relaxed">
+                                ¡Hola! Soy Weki. 🤍<br>No estás exagerando, lo que sientes es súper válido. Cuéntame, ¿qué está pasando por tu mente ahora mismo?
+                            </div>
+                        </div>
+                        <div id="ai-typing" class="hidden flex justify-start">
+                            <div class="bg-white border border-gray-100 p-4 rounded-2xl rounded-tl-none typing-indicator shadow-sm"><span></span><span></span><span></span></div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 border-t border-gray-100 bg-white">
+                        <textarea id="chat-input" class="w-full bg-gray-50 border-2 border-gray-100 rounded-xl p-3 text-textmain font-medium text-sm placeholder-gray-400 focus:outline-none focus:border-lavender focus:ring-4 focus:ring-lavender/10 resize-none h-16 transition" placeholder="Escribe aquí..."></textarea>
+                        <button id="btn-chat" onclick="simulateAIChat()" class="jelly-hover mt-3 w-full bg-lavender hover:bg-purple-600 font-black py-3 rounded-xl transition text-sm text-white flex justify-center items-center gap-2 shadow-lg shadow-lavender/30">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar a Weki
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover cursor-default">
+                    <div class="w-12 h-12 bg-lavender/10 rounded-xl flex items-center justify-center text-lavender text-xl mb-3"><i class="fa-solid fa-ear-listen"></i></div>
+                    <h4 class="font-black text-textmain text-xl mb-2">Escucha Activa</h4>
+                    <p class="text-sm font-medium text-textmuted leading-relaxed">Weki lee el texto y valida la emoción sin lanzar un frío regaño, mapeando qué herramienta interna necesitas (Yoga, Podcasts o el Muro).</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 border-l-8 border-l-neonorange shadow-md jelly-hover cursor-default">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-neonorange text-xl mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h4 class="font-black text-textmain text-xl mb-2">Filtro de Empatía</h4>
+                    <p class="text-sm font-medium text-textmuted leading-relaxed">Si alguien intenta publicar bullying en el muro, la IA no solo lo bloquea, sino que lanza un pop-up empático invitando a la reflexión y cuidando a la comunidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTRATEGIAS DE INNOVACIÓN -->
+    <section id="innovacion" class="py-20 bg-white border-b border-gray-100 polka-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="bg-orange-100 text-orange-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover"><i class="fa-solid fa-lightbulb mr-2"></i>Magia Disruptiva</span>
+                <h2 class="text-4xl font-black mb-4 text-textmain dynamic-title">Estrategias de Innovación</h2>
+                <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">No somos una clínica, somos un movimiento. Así es como logramos conectar con ellos en su día a día.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover text-center flex flex-col items-center">
+                    <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center text-lavender text-3xl mb-4 border border-purple-100"><i class="fa-solid fa-camera-retro"></i></div>
+                    <h4 class="font-black text-textmain text-lg mb-2">Filtros AR "Mood Tracker"</h4>
+                    <p class="text-xs text-textmuted font-medium">Filtros de TikTok/IG que adivinan tu mood con frases graciosas y te dan un tip real.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover text-center flex flex-col items-center">
+                    <div class="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 text-3xl mb-4 border border-amber-100"><i class="fa-solid fa-video"></i></div>
+                    <h4 class="font-black text-textmain text-lg mb-2">Cápsulas de 1 Minuto</h4>
+                    <p class="text-xs text-textmuted font-medium">Storytimes y anécdotas en formato corto. Cero monólogos aburridos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover text-center flex flex-col items-center">
+                    <div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center text-red-500 text-3xl mb-4 border border-red-100"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <h4 class="font-black text-textmain text-lg mb-2">Widget de Pánico</h4>
+                    <p class="text-xs text-textmuted font-medium">Un botón en la pantalla de su celular que lanza un ejercicio de respiración al instante.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-md jelly-hover text-center flex flex-col items-center">
+                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-neonorange text-3xl mb-4 border border-orange-100"><i class="fa-solid fa-note-sticky"></i></div>
+                    <h4 class="font-black text-textmain text-lg mb-2">Stickers en Baños</h4>
+                    <p class="text-xs text-textmuted font-medium">El lugar donde se esconden a llorar. Pegatinas con códigos QR justo donde nos necesitan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTIVACIÓN OFFLINE: El Muro Weknow en Oaxaca -->
+    <section id="mural" class="py-20 bg-lightbg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+            <span class="bg-yellow-100 text-yellow-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover">Activación Oaxaca</span>
+            <h2 class="text-4xl font-black mb-4 text-textmain dynamic-title">El Muro que cruza la pantalla</h2>
+            <p class="text-textmuted max-w-2xl mx-auto text-lg font-medium">Las escuelas en Oaxaca serán nuestro primer punto de contacto. Llevamos la plataforma al mundo físico.</p>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[500px]">
+                <!-- Representación CSS del Muro Kraft -->
+                <div class="w-full h-full bg-[#E6D5B8] relative overflow-hidden flex items-center justify-center">
+                    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\'/%3E%3C/svg%3E');"></div>
+                    
+                    <div class="post-it absolute top-12 left-[10%] w-36 h-36 bg-[#ff7eb9] -rotate-3 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Me siento invisible a veces.</div>
+                    <div class="post-it absolute top-40 left-[25%] w-36 h-36 bg-[#fff740] rotate-6 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">¡Hoy pase mi examen!</div>
+                    <div class="post-it absolute top-16 right-[15%] w-36 h-36 bg-[#7afcff] rotate-2 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Tengo mucho estres por el futuro.</div>
+                    <div class="post-it absolute bottom-24 left-[35%] w-36 h-36 bg-[#ff65a3] -rotate-6 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Extraño a mis amigos.</div>
+                    <div class="post-it absolute bottom-16 right-[25%] w-36 h-36 bg-[#feff9c] rotate-12 p-4 flex items-center justify-center text-center font-handwriting text-gray-900 font-bold text-lg">Quiero llorar y no se porque.</div>
+                    
+                    <h2 class="relative z-10 text-6xl md:text-8xl font-black text-black/10 font-handwriting select-none transform -rotate-6">MURO OAXACA</h2>
+                </div>
+
+                <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md p-8 border-t border-gray-100">
+                    <h3 class="text-2xl font-black text-textmain mb-3">La Dinámica del Muro</h3>
+                    <div class="flex flex-col md:flex-row gap-6 text-sm text-textmuted">
+                        <p><b class="text-amber-500 font-black">1. Materiales:</b> Papel Kraft gigante, Post-its neón, Plumones.</p>
+                        <p><b class="text-lavender font-black">2. Acción:</b> Escriben anónimamente una emoción y lo pegan libremente.</p>
+                        <p><b class="text-neonorange font-black">3. El Puente Digital:</b> Un código QR vibrante los invita a llevar el muro en la App.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODELO DE NEGOCIO (Funnel) -->
+    <section id="negocio" class="py-20 bg-white border-b border-gray-100 polka-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="bg-green-100 text-green-700 font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover"><i class="fa-solid fa-chart-line mr-2"></i>Monetización</span>
+            <h2 class="text-4xl font-black mb-12 text-textmain dynamic-title">Modelo de Negocio (Freemium)</h2>
+            
+            <div class="max-w-3xl mx-auto flex flex-col items-center gap-4">
+                <div class="funnel-layer w-full bg-white rounded-3xl p-6 border-2 border-gray-100 border-t-8 border-t-lavender flex items-center justify-between shadow-lg">
+                    <div class="flex items-center gap-5">
+                        <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center text-lavender text-2xl border border-purple-100"><i class="fa-solid fa-unlock"></i></div>
+                        <div class="text-left">
+                            <h3 class="font-black text-textmain text-xl">Gratis (El Enganche)</h3>
+                            <p class="text-sm text-textmuted font-medium">Comunidad, muro de opiniones y recursos básicos.</p>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 px-4 py-1.5 rounded-full text-xs text-gray-600 font-bold border border-gray-200">100% Usuarios</span>
+                </div>
+                <i class="fa-solid fa-arrow-down text-gray-300 text-xl"></i>
+                
+                <div class="funnel-layer w-[85%] bg-white rounded-3xl p-6 border-2 border-gray-100 border-t-8 border-t-amber-400 flex items-center justify-between shadow-lg">
+                    <div class="flex items-center gap-5">
+                        <div class="w-14 h-14 bg-yellow-50 rounded-2xl flex items-center justify-center text-amber-500 text-2xl border border-amber-100"><i class="fa-solid fa-star"></i></div>
+                        <div class="text-left">
+                            <h3 class="font-black text-textmain text-xl">Premium (B2C)</h3>
+                            <p class="text-sm text-textmuted font-medium">Sesiones 1:1 y contacto con especialistas certificados.</p>
+                        </div>
+                    </div>
+                    <span class="bg-amber-100 px-4 py-1.5 rounded-full text-xs text-amber-600 font-bold border border-amber-200">Monetización</span>
+                </div>
+                <i class="fa-solid fa-arrow-down text-gray-300 text-xl"></i>
+                
+                <div class="funnel-layer w-[70%] bg-white rounded-3xl p-6 border-2 border-gray-100 border-t-8 border-t-neonorange flex items-center justify-between shadow-lg">
+                    <div class="flex items-center gap-5">
+                        <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-neonorange text-2xl border border-orange-100"><i class="fa-solid fa-school"></i></div>
+                        <div class="text-left">
+                            <h3 class="font-black text-textmain text-xl">Alianzas B2B</h3>
+                            <p class="text-sm text-textmuted font-medium">Suscripciones para escuelas e instituciones.</p>
+                        </div>
+                    </div>
+                    <span class="bg-orange-100 px-4 py-1.5 rounded-full text-xs text-orange-600 font-bold border border-orange-200">Escalabilidad</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plataforma Omnicanal (UX/UI Final) -->
+    <section id="ux-ui" class="py-20 bg-lightbg border-t border-gray-200 polka-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 bg-white p-6 rounded-3xl inline-block mx-auto border border-gray-100 shadow-sm">
+                <span class="bg-lavender/10 text-lavender font-bold px-4 py-1.5 rounded-full text-sm mb-4 inline-block jelly-hover">Diseño Luminoso & Friendly</span>
+                <h2 class="text-4xl font-black mb-4 text-textmain dynamic-title">Plataforma Omnicanal (UX/UI)</h2>
+                <p class="text-textmuted max-w-2xl mx-auto font-medium text-lg">Weknow usa el "Light Mode" para transmitir paz y optimismo, adaptándose desde los laboratorios escolares hasta el teléfono en su bolsillo.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                
+                <!-- Desktop UI Mockup Light -->
+                <div class="relative w-full max-w-2xl group">
+                    <div class="bg-gray-200 rounded-t-3xl p-3 border border-gray-300 border-b-0 shadow-2xl transition duration-500 group-hover:shadow-[0_20px_50px_rgba(139,92,246,0.2)] group-hover:-translate-y-2">
+                        <div class="flex gap-2 mb-3 px-2"><div class="w-3.5 h-3.5 rounded-full bg-red-400"></div><div class="w-3.5 h-3.5 rounded-full bg-yellow-400"></div><div class="w-3.5 h-3.5 rounded-full bg-green-400"></div></div>
+                        
+                        <div class="bg-white rounded-2xl h-80 overflow-hidden border border-gray-200 flex shadow-inner">
+                            <div class="w-1/4 bg-gray-50 border-r border-gray-100 p-5 flex flex-col gap-4">
+                                <div class="text-lavender font-black text-sm flex items-center mb-4"><div class="weki-mascot small mr-2" style="width:20px;height:20px;box-shadow:none;"><div class="weki-face"><div class="weki-eyes" style="gap:2px;margin-bottom:1px;"><div class="weki-eye" style="width:2px;height:4px;"></div><div class="weki-eye" style="width:2px;height:4px;"></div></div></div></div> WEKNOW</div>
+                                <div class="flex items-center gap-3 text-textmain text-xs font-bold cursor-pointer bg-white p-3 rounded-xl shadow-sm border border-gray-100"><i class="fa-solid fa-message text-lavender text-lg"></i> Tribu</div>
+                                <div class="flex items-center gap-3 text-textmuted text-xs font-bold hover:text-textmain transition cursor-pointer p-3"><i class="fa-solid fa-headphones text-lg"></i> Audios</div>
+                                <div class="flex items-center gap-3 text-textmuted text-xs font-bold hover:text-textmain transition cursor-pointer p-3"><i class="fa-solid fa-gamepad text-lg"></i> Juegos</div>
+                            </div>
+                            <div class="w-3/4 p-6 flex flex-col gap-5 bg-white relative overflow-hidden">
+                                <div class="bg-gray-50 border-2 border-gray-100 rounded-2xl p-3 flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-lavender flex items-center justify-center text-white text-xs font-bold shadow-md">Tú</div>
+                                    <div class="flex-1 bg-white border border-gray-200 rounded-full h-10 px-4 flex items-center text-gray-400 text-xs shadow-inner font-medium">Escribe en el muro...</div>
+                                </div>
+                                <div class="flex-1 bg-white border-2 border-gray-100 shadow-sm rounded-2xl p-5 flex flex-col gap-3 relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-16 h-16 bg-amber-50 rounded-bl-full"></div>
+                                    <div class="flex gap-3 items-center mb-1 relative z-10">
+                                        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 text-xs font-bold border border-amber-200">NS</div>
+                                        <div><div class="text-sm font-bold text-textmain">NinjaSilencioso</div><div class="text-[10px] text-gray-400 font-bold">Hace 5 min</div></div>
+                                    </div>
+                                    <p class="text-sm text-gray-600 leading-relaxed font-medium relative z-10">Tengo muchísima ansiedad por los exámenes finales. ¿Alguien más está así?</p>
+                                    <div class="mt-auto flex gap-2 relative z-10"><div class="bg-purple-50 text-purple-600 border border-purple-100 px-4 py-2 rounded-xl text-xs font-bold flex items-center"><i class="fa-solid fa-heart mr-1.5"></i> Te entiendo (14)</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-5 bg-gray-300 rounded-b-2xl w-full border-x border-b border-gray-400"></div>
+                    <div class="h-4 bg-gray-200 rounded-b-3xl w-1/3 mx-auto mt-0 border-x border-b border-gray-300"></div>
+                </div>
+
+                <!-- Mobile UI Mockup Light -->
+                <div class="relative group mt-10 lg:mt-0">
+                    <div class="mockup-phone w-72 h-[500px] flex flex-col bg-gray-100 transform transition duration-500 group-hover:scale-105 group-hover:-translate-y-2 border-[6px] border-gray-200 shadow-2xl shadow-lavender/20">
+                        <div class="mockup-notch"></div>
+                        <div class="flex-1 p-5 pt-12 flex flex-col gap-5 overflow-hidden relative bg-white">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-textmain font-black text-lg flex items-center font-display"><i class="fa-solid fa-brain mr-2 text-lavender"></i> Weknow</span>
+                                <div class="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 shadow-sm"><i class="fa-solid fa-user"></i></div>
+                            </div>
+                            
+                            <h4 class="text-xs text-gray-400 font-black uppercase tracking-wider">Juega y Sana</h4>
+                            <div class="grid grid-cols-2 gap-4 mb-2">
+                                <div class="bg-purple-50 border border-purple-100 p-4 rounded-2xl text-center text-purple-700 text-sm font-bold shadow-sm"><i class="fa-solid fa-radar block mb-2 text-2xl text-lavender"></i> Escáner</div>
+                                <div class="bg-amber-50 border border-amber-100 p-4 rounded-2xl text-center text-amber-700 text-sm font-bold shadow-sm"><i class="fa-solid fa-dice block mb-2 text-2xl text-amber-500"></i> Retos</div>
+                            </div>
+
+                            <h4 class="text-xs text-gray-400 font-black uppercase tracking-wider mt-2">Muro Reciente</h4>
+                            <div class="bg-gray-50 rounded-2xl border border-gray-100 p-4 flex flex-col gap-2 shadow-sm">
+                                <div class="flex gap-2 items-center">
+                                    <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-[10px] font-bold border border-orange-200">FR</div>
+                                    <div class="text-sm font-bold text-textmain">FuegoRebelde</div>
+                                </div>
+                                <p class="text-xs text-gray-600 font-medium leading-relaxed">El audio de relajación me ayudó muchísimo hoy.</p>
+                            </div>
+
+                            <div class="absolute bottom-24 right-5 weki-mascot small shadow-[0_0_20px_rgba(139,92,246,0.6)] border-2 border-white"><div class="weki-face"><div class="weki-eyes"><div class="weki-eye"></div><div class="weki-eye"></div></div><div class="weki-mouth"></div></div></div>
+                            
+                            <div class="absolute bottom-0 left-0 right-0 h-20 bg-white border-t border-gray-100 flex justify-around items-center text-gray-400 text-xl pb-2 px-2 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+                                <i class="fa-solid fa-house text-lavender"></i><i class="fa-solid fa-magnifying-glass"></i>
+                                <div class="w-14 h-14 rounded-full bg-lavender flex items-center justify-center -translate-y-6 border-4 border-white text-white shadow-xl shadow-lavender/40"><i class="fa-solid fa-plus text-2xl"></i></div>
+                                <i class="fa-solid fa-gamepad"></i><i class="fa-solid fa-gear"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-10 border-t border-gray-100 text-center mt-10">
+        <div class="flex justify-center items-center gap-3 mb-4">
+            <div class="weki-mascot small" style="width:25px;height:25px;animation:none;box-shadow:none;"><div class="weki-face"><div class="weki-eyes" style="gap:3px;margin-bottom:1px;"><div class="weki-eye" style="width:3px;height:5px;"></div><div class="weki-eye" style="width:3px;height:5px;"></div></div></div></div>
+            <span class="font-black text-textmain font-display text-xl">WEKNOW</span>
+        </div>
+        <p class="text-textmuted text-sm font-medium">Proyecto Weknow © 2026. Diseñado para sanar mentes jóvenes con IA, diseño y mucha empatía.</p>
+    </footer>
+
+    <!-- Scripts de Inteligencia Artificial (Gemini API) -->
+    <script>
+        const apiKey = ""; 
+        
+        async function fetchGeminiWithRetry(prompt, isJson = false) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: {
+                    parts: [{ text: "Eres Weki, la mascota y motor de IA de Weknow (una app de salud mental para adolescentes). Eres una 'chispa de energía' amigable y empática. Hablas su mismo idioma, eres divertido y tu objetivo es brindar contención." }]
+                }
+            };
+            
+            if (isJson) { payload.generationConfig = { responseMimeType: "application/json" }; }
+            
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if(!text) throw new Error("No response content");
+                    return isJson ? JSON.parse(text) : text;
+                } catch (err) {
+                    if (i === 4) throw err;
+                    await new Promise(r => setTimeout(r, delays[i]));
+                }
+            }
+        }
+
+        async function generateNicknameAI() {
+            const btn = document.getElementById('btn-nickname');
+            const display = document.getElementById('nickname-display');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lavender"></i> Weki pensando...';
+            btn.disabled = true;
+            try {
+                const prompt = `Genera UN SOLO nickname divertido y positivo combinando 2 palabras en español (ej: NinjaPositivo) y un número de 2 dígitos al final. Devuelve ÚNICAMENTE el nickname.`;
+                const nickname = await fetchGeminiWithRetry(prompt, false);
+                display.innerText = nickname.trim();
+                display.classList.add('animate-bounce');
+                setTimeout(() => display.classList.remove('animate-bounce'), 1000);
+            } catch (error) {
+                display.innerText = "CometaBrillante99";
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function simulateAIChat() {
+            const inputEl = document.getElementById('chat-input');
+            const message = inputEl.value;
+            if(message.trim() === '') return;
+
+            const chatContainer = document.getElementById('chat-container');
+            const userMsgHtml = `<div class="flex justify-end mt-4"><div class="bg-lavender text-white font-medium text-sm p-4 rounded-3xl rounded-tr-none max-w-[85%] shadow-md">${message}</div></div>`;
+            document.getElementById('ai-typing').insertAdjacentHTML('beforebegin', userMsgHtml);
+            inputEl.value = '';
+            
+            const typingIndicator = document.getElementById('ai-typing');
+            typingIndicator.classList.remove('hidden');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            const btn = document.getElementById('btn-chat');
+            btn.disabled = true;
+
+            try {
+                const aiPrompt = `Un adolescente te dice: "${message}". Responde como Weki en 3 oraciones cortas. Valida su emoción amigablemente. Recomienda usar Yoga de 5 min, escuchar un podcast, o ir al Muro Anónimo. Sin markdown.`;
+                const responseText = await fetchGeminiWithRetry(aiPrompt, false);
+                const aiMsgHtml = `<div class="flex justify-start mt-4"><div class="bg-white border border-gray-100 text-textmain font-medium text-sm p-4 rounded-3xl rounded-tl-none max-w-[85%] shadow-md">${responseText}</div></div>`;
+                typingIndicator.classList.add('hidden');
+                typingIndicator.insertAdjacentHTML('beforebegin', aiMsgHtml);
+            } catch (error) {
+                typingIndicator.classList.add('hidden');
+                typingIndicator.insertAdjacentHTML('beforebegin', `<div class="flex justify-start mt-4"><div class="bg-red-50 text-red-700 text-sm p-4 rounded-3xl max-w-[85%]">Ouch, perdí la conexión. ¡Recuerda respirar profundo!</div></div>`);
+            } finally {
+                btn.disabled = false;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+
+        async function scanMoodAI() {
+            const input = document.getElementById('mood-input').value;
+            if(input.trim() === '') return;
+            const btn = document.getElementById('btn-mood');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white"></i> Weki escaneando...';
+            btn.disabled = true;
+            document.getElementById('mood-result').classList.add('hidden');
+
+            try {
+                const prompt = `Analiza este texto de un adolescente: "${input}". Identifica la emoción principal.
+                Devuelve un JSON:
+                { "emocion": "Nombre emoción", "emoji": "Un emoji", "color": "Un color HEX pastel", "consejo": "Un consejo divertido de 2 líneas de Weki." }`;
+                const result = await fetchGeminiWithRetry(prompt, true);
+                
+                document.getElementById('mood-name').innerText = result.emocion;
+                document.getElementById('mood-emoji').innerText = result.emoji;
+                document.getElementById('mood-color-bar').style.backgroundColor = result.color || '#8b5cf6';
+                document.getElementById('mood-advice').innerText = result.consejo;
+                document.getElementById('mood-result').classList.remove('hidden');
+            } catch (error) {
+                document.getElementById('mood-name').innerText = "Confusión";
+                document.getElementById('mood-emoji').innerText = "😵‍💫";
+                document.getElementById('mood-result').classList.remove('hidden');
+            } finally { btn.innerHTML = originalText; btn.disabled = false; }
+        }
+
+        async function generateChallengeAI() {
+            const btn = document.getElementById('btn-challenge');
+            const display = document.getElementById('challenge-display');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white"></i> Creando...';
+            btn.disabled = true;
+            display.classList.add('opacity-50');
+
+            try {
+                const prompt = `Genera un mini-reto de autocuidado de salud mental de 1 minuto para un adolescente. Divertido y positivo. Devuelve SÓLO el texto del reto.`;
+                const challenge = await fetchGeminiWithRetry(prompt, false);
+                display.innerText = challenge.trim();
+                display.classList.add('dance-text');
+                setTimeout(() => display.classList.remove('dance-text'), 1500);
+            } catch (error) {
+                display.innerText = "¡Reto de Weki: Sonríele a la primera persona que veas hoy!";
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                display.classList.remove('opacity-50');
+            }
+        }
+    </script>
+</body>
+</html>
